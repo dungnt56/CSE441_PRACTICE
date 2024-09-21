@@ -1,11 +1,9 @@
 package com.dungnt.ex02;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,21 +11,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
-    Button btnCall;
+public class SubActivity extends AppCompatActivity {
+    Button btnok;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        Toast.makeText(this, "Ex2 - onCreate()", Toast.LENGTH_SHORT).show();
-
-        btnCall = findViewById(R.id.btncall);
-        btnCall.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_sub);
+        btnok = findViewById(R.id.btnok);
+        btnok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent subIntent = new Intent(MainActivity.this, SubActivity.class);
-                startActivity(subIntent);
+                finish();
             }
         });
     }
