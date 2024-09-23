@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".exercise4.ConvertTemporary">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/editTextFahrenheit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Fahrenheit"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/editTextCelsius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Celsius"
+            android:inputType="numberDecimal"
+            android:layout_below="@id/editTextFahrenheit"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/buttonConvertToCelsius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Convert To Celsius"
+            android:layout_below="@id/editTextCelsius"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/buttonConvertToFahrenheit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextCelsius"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@id/buttonConvertToCelsius"
+            android:text="Convert To Fahrenheit" />
+
+        <Button
+            android:id="@+id/buttonClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:layout_below="@id/buttonConvertToCelsius"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
