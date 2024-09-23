@@ -34,44 +34,80 @@ public class MainActivity extends AppCompatActivity {
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int a = Integer.parseInt("0" + inputA.getText());
-                int b = Integer.parseInt("0" + inputB.getText());
-                resultEditText.setText("a + b = " +(a+b));
+                String inputAText = inputA.getText().toString().trim();
+                String inputBText = inputB.getText().toString().trim();
+
+                if (isInteger(inputAText) && isInteger(inputBText)) {
+                    int a = Integer.parseInt(inputAText);
+                    int b = Integer.parseInt(inputBText);
+                    resultEditText.setText("a + b = " +(a+b));
+                } else {
+                    resultEditText.setText("Vui lòng nhập số nguyên hợp lệ.");
+                }
             }
         });
 
         btnSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int a = Integer.parseInt("0" + inputA.getText());
-                int b = Integer.parseInt("0" + inputB.getText());
-                resultEditText.setText("a - b = " +(a-b));
+                String inputAText = inputA.getText().toString().trim();
+                String inputBText = inputB.getText().toString().trim();
 
+                if (isInteger(inputAText) && isInteger(inputBText)) {
+                    int a = Integer.parseInt(inputAText);
+                    int b = Integer.parseInt(inputBText);
+                    resultEditText.setText("a - b = " +(a-b));
+                } else {
+                    resultEditText.setText("Vui lòng nhập số nguyên hợp lệ.");
+                }
             }
         });
 
         btnDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int a = Integer.parseInt("0" + inputA.getText());
-                int b = Integer.parseInt("0" + inputB.getText());
-                if (b == 0){
-                    inputB.setError("Không thể nhập số 0. Vui lòng nhập số khác.");
-                }else {
-                    resultEditText.setText("a / b = " +(a /b));
-                }
+                String inputAText = inputA.getText().toString().trim();
+                String inputBText = inputB.getText().toString().trim();
 
+
+                if (isInteger(inputAText) && isInteger(inputBText)) {
+                    int a = Integer.parseInt(inputAText);
+                    int b = Integer.parseInt(inputBText);
+
+                    if (b == 0){
+                        inputB.setError("Không thể nhập số 0. Vui lòng nhập số khác.");
+                    }else {
+                        resultEditText.setText("a / b = " +(Double.valueOf(a) /Double.valueOf(b)));
+                    }
+                } else {
+                    resultEditText.setText("Vui lòng nhập số nguyên hợp lệ.");
+                }
             }
         });
 
         btnMulti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int a = Integer.parseInt("0" + inputA.getText());
-                int b = Integer.parseInt("0" + inputB.getText());
-                resultEditText.setText("a * b = " +(a*b));
+                String inputAText = inputA.getText().toString().trim();
+                String inputBText = inputB.getText().toString().trim();
+
+                if (isInteger(inputAText) && isInteger(inputBText)) {
+                    int a = Integer.parseInt(inputAText);
+                    int b = Integer.parseInt(inputBText);
+                    resultEditText.setText("a * b = " +(a*b));
+                } else {
+                    resultEditText.setText("Vui lòng nhập số nguyên hợp lệ.");
+                }
 
             }
         });
+    }
+    public boolean isInteger(String input) {
+        try {
+            Integer.parseInt(input.trim());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
