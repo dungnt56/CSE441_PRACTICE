@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         btnCalculatorBmi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Open calculator BMI", Toast.LENGTH_SHORT).show();
+                Intent inten = new Intent(MainActivity.this, CalculatorBmi.class);
+                startActivity(inten);
             }
         });
     }
