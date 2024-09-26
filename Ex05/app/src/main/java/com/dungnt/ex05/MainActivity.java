@@ -1,6 +1,11 @@
 package com.dungnt.ex05;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,16 +50,29 @@ public class MainActivity extends AppCompatActivity {
         MAP_CHI.put(10, "Ngọ");
         MAP_CHI.put(11, "Mùi");
     }
+    Button convertBtn;
+    EditText edt_OriginYear;
+    TextView resultConvertYear;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        resultConvertYear = findViewById(R.id.tv_resultConvertYear);
+        convertBtn = findViewById(R.id.convert);
+        edt_OriginYear = findViewById(R.id.originYear);
+
+        convertBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String originYear = edt_OriginYear.getText().toString();
+                String resultConvert = convertYearNumberToChinaYear(originYear);
+                resultConvertYear.setText(resultConvert);
+            }
         });
+
     }
     private String convertYearNumberToChinaYear(String yearNumber){
         if (!isValidYear(yearNumber)){
