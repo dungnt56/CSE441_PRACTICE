@@ -8,33 +8,33 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Yêu cầu kết quả"
-        android:textAlignment="center"
-        android:textColor="#f5b041"
-        android:textSize="20sp" />
+        android:padding="16dp"
+        android:text="Xử lý Kết quả"
+        android:textColor="#7dcea0"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:gravity="center" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:background="#F5F5F5"
         android:layout_marginBottom="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nhập A:"
-            android:textColor="#7dcea0"
-            android:textStyle="bold"
-            android:textSize="18sp" />
+            android:text="Nhận A:"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/et_valueA"
+            android:enabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:layout_marginStart="8dp"
-            android:text="113" />
+            android:layout_marginStart="8dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,59 +42,44 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:background="#F5F5F5"
         android:layout_marginBottom="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nhập B:"
-            android:textColor="#7dcea0"
-            android:textStyle="bold"
-            android:textSize="18sp" />
+            android:text="Nhận B:"
+            android:textSize="16sp" />
 
         <EditText
+            android:enabled="false"
             android:id="@+id/et_valueB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:layout_marginStart="8dp"
-            android:text="100" />
+            android:layout_marginStart="8dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp"
-        android:background="#F5F5F5"
-        android:layout_marginBottom="8dp">
+        android:gravity="center">
 
-        <TextView
+        <Button
+            android:id="@+id/buttonSum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kết quả:"
-            android:textColor="#d35400"
-            android:textStyle="bold"
-            android:textSize="18sp"/>
+            android:text="TRẢ VỀ TỔNG"
+            android:layout_marginEnd="16dp"
+            android:background="#9C27B0"
+            android:textColor="#FFFFFF" />
 
-        <EditText
-            android:enabled="false"
-            android:id="@+id/et_result"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/buttonDifference"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:layout_marginStart="8dp"
-            android:text="" />
+            android:text="TRẢ VỀ HIỆU"
+            android:background="#9C27B0"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_request"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="YÊU CẦU KẾT QUẢ"
-        android:layout_gravity="center"
-        android:padding="16dp"
-        android:background="#9C27B0"
-        android:textColor="#FFFFFF" />
 </LinearLayout>
