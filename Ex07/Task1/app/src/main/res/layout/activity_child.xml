@@ -8,14 +8,14 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewChild"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#008000"
+        android:background="#f4d03f"
         android:gravity="center"
-        android:text="This is main Activity"
+        android:text="This is Child Activity"
         android:textAlignment="center"
-        android:textColor="#FFFF00"
+        android:textColor="#58d68d"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,14 +25,14 @@
         app:layout_constraintVertical_bias="0.046" />
 
     <Button
-        android:id="@+id/openChildActivity"
+        android:id="@+id/backToMain"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChild"
         app:layout_constraintVertical_bias="0.033"
-        android:text="Open Child Activity"
+        android:text="Back to Main Activity"
         tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
