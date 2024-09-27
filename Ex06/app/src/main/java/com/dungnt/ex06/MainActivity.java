@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public void submitInformation(){
 
         String fullname = etFullname.getText().toString();
-        fullname.trim();
+        fullname = fullname.trim();
         if (TextUtils.isEmpty(fullname)){
             etFullname.requestFocus();
             etFullname.selectAll();
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String idCard = etIdCard.getText().toString();
-        idCard.trim();
+        idCard = idCard.trim();
         if (idCard.length() != 9){
             etIdCard.requestFocus();
             etIdCard.selectAll();
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         int selectedId = certificate.getCheckedRadioButtonId();
         String certificateChoose = "";
 
-        // Nếu có lựa chọn
+        // Get value certificate
         if (selectedId != -1) {
             RadioButton selectedRadioButton = findViewById(selectedId);
             String selectedOption = selectedRadioButton.getText().toString();
@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-        //tạo nội dung
         String msg=fullname+"\n";
         msg+= idCard+"\n";
         msg+=certificateChoose+"\n";
@@ -120,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
         msg+="Thông tin bổ sung:\n";
         msg+=additional+ "\n";
         msg+="—————————–";
-        builder.setMessage(msg);//thiết lập nội dung
-        builder.create().show();//hiển thị Dialog
+        builder.setMessage(msg);
+        builder.create().show();
     }
     @SuppressLint("MissingSuperCall")
     @Override
