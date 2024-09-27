@@ -4,16 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
+        <Button
+            android:id="@+id/btn_convertYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Convert year"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp" />
+
+        <Button
+            android:id="@+id/btn_solveEquation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Solve equation"
+            android:layout_below="@id/btn_convertYear"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="170dp"
+            android:text="Bai tap 5" />
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
