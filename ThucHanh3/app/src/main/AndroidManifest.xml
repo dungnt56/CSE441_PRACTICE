@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Thuc_hanh_03"
         tools:targetApi="31">
         <activity
+            android:name=".activity.AddStudent"
+            android:exported="false" />
+        <activity
+            android:name=".activity.StudentDetails"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
