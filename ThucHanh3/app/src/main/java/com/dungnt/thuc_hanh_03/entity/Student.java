@@ -1,5 +1,7 @@
 package com.dungnt.thuc_hanh_03.entity;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 public class Student  implements Serializable {
@@ -32,8 +34,20 @@ public class Student  implements Serializable {
         return full_name;
     }
 
-    public void setFullName(Fullname full_name) {
-        this.full_name = full_name;
+    public void setFullName(String fullnameStr) {
+        Fullname fullname = new Fullname();
+        String[] nameParts = fullnameStr.split("\\s+");
+        if (nameParts.length > 0) {
+            fullname.setFirst(nameParts[0]);
+        }
+        if (nameParts.length > 2) {
+            fullname.setMidd(TextUtils.join(" ", java.util.Arrays.copyOfRange(nameParts, 1, nameParts.length - 1)));
+        }
+        if (nameParts.length > 1) {
+            fullname.setLast(nameParts[nameParts.length - 1]);
+        }
+
+        this.full_name = fullname;
     }
 
     public String getGender() {

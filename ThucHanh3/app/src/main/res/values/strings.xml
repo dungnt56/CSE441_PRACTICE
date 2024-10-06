@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">thuc_hanh_03</string>
+    <string-array name="year_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+    <string-array name="major_array">
+        <item>CNTT</item>
+        <item>TLA106 - Công nghệ thông tin</item>
+        <item>TLA116 - Hệ thống thông tin</item>
+        <item>TLA117 - Kỹ thuật phần mềm</item>
+        <item>TLA126 - Trí tuệ nhân tạo và khoa học dữ liệu</item>
+        <item>TLA127 - An ninh mạng</item>
+        <item>TLA105 - Kỹ thuật ô tô</item>
+        <item>TLA120 - Kỹ thuật cơ điện tử</item>
+    </string-array>
+    <string-array name="address_array">
+        <item>Hà Nội</item>
+        <item>Hải Phòng</item>
+        <item>Quảng Ninh</item>
+        <item>Hà Giang</item>
+        <item>Hà Giang</item>
+        <item>Cao Bằng</item>
+        <item>Bắc Kạn</item>
+        <item>Lạng Sơn</item>
+        <item>Thái Nguyên</item>
+        <item>Phú Thọ</item>
+        <item>Bắc Giang</item>
+        <item>Tuyên Quang</item>
+    </string-array>
 </resources>

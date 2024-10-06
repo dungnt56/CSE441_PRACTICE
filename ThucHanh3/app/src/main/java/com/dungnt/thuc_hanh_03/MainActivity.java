@@ -1,11 +1,15 @@
 package com.dungnt.thuc_hanh_03;
 
+import static com.dungnt.thuc_hanh_03.utils.Constant.REQUEST_CODE.REQUEST_ADD_STUDENT;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,6 +22,8 @@ import com.dungnt.thuc_hanh_03.activity.AddStudent;
 import com.dungnt.thuc_hanh_03.activity.StudentDetails;
 import com.dungnt.thuc_hanh_03.adapter.StudentAdapter;
 import com.dungnt.thuc_hanh_03.entity.Student;
+import com.dungnt.thuc_hanh_03.helper.JsonHelper;
+import com.dungnt.thuc_hanh_03.utils.Constant;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,6 +31,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private StudentAdapter studentAdapter;
     private FloatingActionButton fabAddStudent;
+    List<Student> studentList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,39 +51,34 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
+        Type studentListType = new TypeToken<List<Student>>() {}.getType();
+        studentList = JsonHelper.loadDataFromJson(this, Constant.FILE_JSON_LIST_STUDENTS, studentListType);
         this.loadListStudent();
 
         fabAddStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentAddStudent = new Intent(MainActivity.this, AddStudent.class);
-                startActivity(intentAddStudent);
+                startActivityForResult(intentAddStudent, REQUEST_ADD_STUDENT);
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (REQUEST_ADD_STUDENT == requestCode && Activity.RESULT_OK == resultCode){
+//            studentList
+            Student newStudent = (Student) data.getExtras().getSerializable("newStudent");
+            studentList.add(newStudent);
+            this.loadListStudent();
+        }
+    }
+
     private void loadListStudent(){
-        List<Student> studentList = loadStudentsFromJson();
         if (studentList != null) {
             studentAdapter = new StudentAdapter(MainActivity.this, studentList);
             recyclerView.setAdapter(studentAdapter);
         }
-    }
-    private List<Student> loadStudentsFromJson() {
-        String json = null;
-        try {
-            InputStream inputStream = getAssets().open("students.json");
-            int size = inputStream.available();
-            byte[] buffer = new byte[size];
-            inputStream.read(buffer);
-            inputStream.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException e) {
-            Log.e("MainActivity", "Error reading JSON file", e);
-            return null;
-        }
-
-        Gson gson = new Gson();
-        Type studentListType = new TypeToken<List<Student>>() {}.getType();
-        return gson.fromJson(json, studentListType);
     }
 }
