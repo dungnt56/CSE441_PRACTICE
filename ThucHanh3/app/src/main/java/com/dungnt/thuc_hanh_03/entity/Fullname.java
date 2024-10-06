@@ -1,6 +1,8 @@
 package com.dungnt.thuc_hanh_03.entity;
 
-public class Fullname {
+import java.io.Serializable;
+
+public class Fullname implements Serializable {
     String first;
     String last;
     String midd;
