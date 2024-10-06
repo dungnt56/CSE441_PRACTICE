@@ -3,10 +3,14 @@ package com.dungnt.thuc_hanh_03.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -48,5 +52,31 @@ public class StudentDetails extends AppCompatActivity {
         tvGpa.setText(String.valueOf(student.getGpa()));
         tvYear.setText(String.valueOf(student.getYear()));
 
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(student.getId());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail_student, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home){
+            finish();
+            return true;
+        }else if (item.getItemId() == R.id.action_edit){
+            Toast.makeText(this, "Edit", Toast.LENGTH_SHORT).show();
+            return true;
+
+        }else if (item.getItemId() == R.id.action_delete){
+            Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
     }
 }
