@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -33,11 +35,13 @@ import java.util.List;
 
 public class AddStudent extends AppCompatActivity {
 
+    private TextView titleCreateUpdateStudent;
     private EditText editTextStudentId, editTextName, editTextEmail, editTextBirthdate, editTextGpa;
     private Spinner spinnerMajor, spinnerAddress, spinnerYear;
     private RadioGroup radioGroupGender;
     private RadioButton radioMale, radioFemale, radioOther;
     private Button buttonComplete;
+    int position;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -58,6 +62,41 @@ public class AddStudent extends AppCompatActivity {
         radioFemale = findViewById(R.id.radioFemale);
         radioOther = findViewById(R.id.radioOther);
         buttonComplete = findViewById(R.id.buttonComplete);
+        titleCreateUpdateStudent = findViewById(R.id.titleCreateUpdateStudent);
+
+
+        Intent i = getIntent();
+        position = i.getIntExtra("position", -1);
+        if (position != -1){
+            Student studentUpdate = (Student)i.getSerializableExtra("studentInfo");
+            editTextStudentId.setText(studentUpdate.getId());
+            editTextName.setText(studentUpdate.getFullnameStudent());
+            editTextEmail.setText(studentUpdate.getEmail());
+            editTextBirthdate.setText(studentUpdate.getBirthDate());
+            editTextGpa.setText(String.valueOf(studentUpdate.getGpa()));
+
+            ArrayAdapter<CharSequence> majorAdapter = (ArrayAdapter<CharSequence>) spinnerMajor.getAdapter();
+            int majorPosition = majorAdapter.getPosition(studentUpdate.getMajor());
+            spinnerMajor.setSelection(majorPosition);
+
+            ArrayAdapter<CharSequence> addressAdapter = (ArrayAdapter<CharSequence>) spinnerAddress.getAdapter();
+            int addressPosition = addressAdapter.getPosition(studentUpdate.getAddress());
+            spinnerAddress.setSelection(addressPosition);
+
+            ArrayAdapter<CharSequence> yearAdapter = (ArrayAdapter<CharSequence>) spinnerYear.getAdapter();
+            int yearPosition = yearAdapter.getPosition(String.valueOf(studentUpdate.getYear()));
+            spinnerYear.setSelection(yearPosition);
+
+            String gender = studentUpdate.getGender();
+            if (gender.equals("Nam")) {
+                radioMale.setChecked(true);
+            } else if (gender.equals("Nữ")) {
+                radioFemale.setChecked(true);
+            } else {
+                radioOther.setChecked(true);
+            }
+            titleCreateUpdateStudent.setText("Cập nhật " + studentUpdate.getId());
+        }
 
         buttonComplete.setOnClickListener(v -> {
             String studentId = editTextStudentId.getText().toString();
@@ -135,11 +174,26 @@ public class AddStudent extends AppCompatActivity {
             student.setYear(Integer.valueOf(year));
             student.setGender(gender);
 
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("newStudent", student);
-            setResult(Activity.RESULT_OK, resultIntent);
+            if (position == -1){
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("newStudent", student);
+                setResult(Activity.RESULT_OK, resultIntent);
+            }else {
+                this.updateStudent(student);
+            }
             finish();
         });
+    }
+
+    private void updateStudent(Student student){
+        Type studentListType = new TypeToken<List<Student>>() {}.getType();
+        List<Student> studentList = JsonHelper.loadDataFromJson(this, Constant.FILE_JSON_LIST_STUDENTS, studentListType);
+        studentList.set(position, student);
+        JsonHelper.saveDataToJson(this, Constant.FILE_JSON_LIST_STUDENTS, studentList);
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("studentUpdate", student);
+        setResult(Activity.RESULT_OK, resultIntent);
+
     }
     private boolean isValidEmail(String email) {
         return email != null && Patterns.EMAIL_ADDRESS.matcher(email).matches();

@@ -83,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
                         if (position != -1){
                             this.studentList.remove(position);
                             JsonHelper.saveDataToJson(this, Constant.FILE_JSON_LIST_STUDENTS, studentList);
-                            this.loadListStudent();
                         }
                     }
+                    this.readListStudentFromFile();
                 }
         );
         this.loadListStudent();
@@ -93,6 +93,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Danh sách SV");
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void readListStudentFromFile(){
+        Type studentListType = new TypeToken<List<Student>>() {}.getType();
+        studentList = JsonHelper.loadDataFromJson(this, Constant.FILE_JSON_LIST_STUDENTS, studentListType);
+        this.loadListStudent();
     }
 
     @Override
@@ -106,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String textSearch) {
                 searchStudentByName(textSearch);
-                return false;
+                return true;
             }
 
             @Override
