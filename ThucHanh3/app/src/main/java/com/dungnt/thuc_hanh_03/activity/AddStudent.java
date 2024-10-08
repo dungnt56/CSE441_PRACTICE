@@ -135,10 +135,6 @@ public class AddStudent extends AppCompatActivity {
             student.setYear(Integer.valueOf(year));
             student.setGender(gender);
 
-//            Type studentListType = new TypeToken<List<Student>>() {}.getType();
-//            List<Student> studentList = JsonHelper.loadDataFromJson(this, Constant.FILE_JSON_LIST_STUDENTS, studentListType);
-//            studentList.add(student);
-//            JsonHelper.saveDataToJson(this, Constant.FILE_JSON_LIST_STUDENTS, studentList);
             Intent resultIntent = new Intent();
             resultIntent.putExtra("newStudent", student);
             setResult(Activity.RESULT_OK, resultIntent);

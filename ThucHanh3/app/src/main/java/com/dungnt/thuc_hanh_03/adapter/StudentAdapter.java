@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,13 +21,16 @@ import java.util.List;
 public class StudentAdapter  extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder>{
     private List<Student> studentList;
     private Context context;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
 
     public StudentAdapter(
             Context context,
+            ActivityResultLauncher<Intent> activityResultLauncher ,
             List<Student> studentList
     ) {
         this.studentList = studentList;
         this.context = context;
+        this.activityResultLauncher = activityResultLauncher;
     }
 
     @NonNull
@@ -47,7 +51,10 @@ public class StudentAdapter  extends RecyclerView.Adapter<StudentAdapter.Student
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, StudentDetails.class);
             intent.putExtra("studentInfo", student);
-            context.startActivity(intent);
+            intent.putExtra("position", position);
+//            context.startActivity(intent);
+
+            activityResultLauncher.launch(intent);
         });
 
     }

@@ -3,12 +3,15 @@ package com.dungnt.thuc_hanh_03;
 import static com.dungnt.thuc_hanh_03.utils.Constant.REQUEST_CODE.REQUEST_ADD_STUDENT;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -27,9 +30,6 @@ import com.dungnt.thuc_hanh_03.utils.Constant;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private StudentAdapter studentAdapter;
     private FloatingActionButton fabAddStudent;
     List<Student> studentList = new ArrayList<>();
+    ActivityResultLauncher<Intent> activityResultLauncher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(dividerItemDecoration);
         Type studentListType = new TypeToken<List<Student>>() {}.getType();
         studentList = JsonHelper.loadDataFromJson(this, Constant.FILE_JSON_LIST_STUDENTS, studentListType);
-        this.loadListStudent();
 
         fabAddStudent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +62,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intentAddStudent, REQUEST_ADD_STUDENT);
             }
         });
+
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Constant.REQUEST_DELETE) {
+                        Intent data = result.getData();
+                        int position = data.getIntExtra("position", -1);
+                        if (position != -1){
+                            this.studentList.remove(position);
+                            JsonHelper.saveDataToJson(this, Constant.FILE_JSON_LIST_STUDENTS, studentList);
+                            this.loadListStudent();
+                        }
+                    }
+                }
+        );
+        this.loadListStudent();
     }
 
     @Override
@@ -71,13 +87,14 @@ public class MainActivity extends AppCompatActivity {
 //            studentList
             Student newStudent = (Student) data.getExtras().getSerializable("newStudent");
             studentList.add(newStudent);
+            JsonHelper.saveDataToJson(this, Constant.FILE_JSON_LIST_STUDENTS, studentList);
             this.loadListStudent();
         }
     }
 
     private void loadListStudent(){
         if (studentList != null) {
-            studentAdapter = new StudentAdapter(MainActivity.this, studentList);
+            studentAdapter = new StudentAdapter(MainActivity.this, activityResultLauncher, studentList);
             recyclerView.setAdapter(studentAdapter);
         }
     }

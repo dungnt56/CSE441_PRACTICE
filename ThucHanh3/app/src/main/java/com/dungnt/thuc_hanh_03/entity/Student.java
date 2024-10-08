@@ -27,7 +27,9 @@ public class Student  implements Serializable {
     }
 
     public String getFullnameStudent(){
-        return full_name.getFirstName() + " " + full_name.getMiddleName() + " " + full_name.getLastName();
+        return  (!TextUtils.isEmpty(full_name.getFirstName()) ? full_name.getFirstName() : "") + " "
+                + (!TextUtils.isEmpty(full_name.getMiddleName()) ? full_name.getMiddleName() : "") + " "
+                + (!TextUtils.isEmpty(full_name.getLastName()) ? full_name.getLastName() : "");
     }
 
     public Fullname getFullName() {

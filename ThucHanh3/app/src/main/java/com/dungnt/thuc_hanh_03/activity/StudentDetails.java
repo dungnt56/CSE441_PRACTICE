@@ -1,6 +1,7 @@
 package com.dungnt.thuc_hanh_03.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,10 +18,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.dungnt.thuc_hanh_03.R;
 import com.dungnt.thuc_hanh_03.entity.Student;
+import com.dungnt.thuc_hanh_03.utils.Constant;
+import androidx.appcompat.app.AlertDialog;
 
 public class StudentDetails extends AppCompatActivity {
 
     TextView tvId, tvFullname, tvGender, tvBirthDate, tvEmail, tvAddress, tvMajor, tvGpa, tvYear;
+    int position;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -41,6 +46,7 @@ public class StudentDetails extends AppCompatActivity {
 
         Intent i = getIntent();
         Student student = (Student)i.getSerializableExtra("studentInfo");
+        position = i.getIntExtra("position", 0);
 
         tvId.setText(student.getId());
         tvFullname.setText(student.getFullnameStudent());
@@ -74,9 +80,30 @@ public class StudentDetails extends AppCompatActivity {
             return true;
 
         }else if (item.getItemId() == R.id.action_delete){
-            Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
-            return true;
+            this.showConfirmDialog();
         }
         return false;
+    }
+
+    private void showConfirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage("Bạn có chắc chắn muốn xóa?");
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("position", position);
+            setResult(Constant.REQUEST_DELETE, resultIntent);
+            finish();
+        });
+
+        builder.setNegativeButton("CANCEL", (dialog, which) -> {
+            dialog.dismiss();
+        });
+
+        // Hiển thị Dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
