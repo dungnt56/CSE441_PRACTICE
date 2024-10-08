@@ -102,7 +102,6 @@ public class StudentDetails extends AppCompatActivity {
             dialog.dismiss();
         });
 
-        // Hiển thị Dialog
         AlertDialog dialog = builder.create();
         dialog.show();
     }
