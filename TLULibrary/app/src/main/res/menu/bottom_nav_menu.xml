@@ -6,14 +6,22 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_home" />
 
-    <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_dashboard"-->
+<!--        android:icon="@drawable/ic_dashboard_black_24dp"-->
+<!--        android:title="@string/title_dashboard" />-->
 
-    <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_notifications"-->
+<!--        android:icon="@drawable/ic_notifications_black_24dp"-->
+<!--        android:title="@string/title_notifications" />-->
 
+        <item
+            android:id="@+id/navigation_add_book"
+            android:icon="@drawable/ic_menu_book"
+            android:title="@string/title_add_book" />
+        <item
+            android:id="@+id/navigation_list_book"
+            android:icon="@drawable/ic_menu_list_book"
+            android:title="@string/title_list_book" />
 </menu>
